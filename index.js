@@ -44,6 +44,22 @@ const run = async () => {
     });
 
     /**
+     * @method  POST
+     * @access  private
+     * @desc    Add a new product
+     */
+    app.post('/products', async (req, res) => {
+      const { values } = req.body;
+      const response = await productsCollection.insertOne({
+        ...values,
+        price: Number(values.price),
+        quantity: Number(values.quantity),
+      });
+
+      res.send(response);
+    });
+
+    /**
      * @method  DELETE
      * @access  private
      * @desc    Delete a single product
