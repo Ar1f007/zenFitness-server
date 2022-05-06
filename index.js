@@ -21,16 +21,38 @@ const run = async () => {
     await client.connect();
     const productsCollection = client.db('zenFitness').collection('products');
 
+    /**
+     * @method  GET
+     * @access  public
+     * @desc    Get all products
+     */
     app.get('/products', async (req, res) => {
       const cursor = productsCollection.find({});
       const products = await cursor.toArray();
       res.send(products);
     });
 
+    /**
+     * @method  GET
+     * @access  private
+     * @desc    Get a single product's details
+     */
     app.get('/products/details/:id', async (req, res) => {
       const { id } = req.params;
       const productDetails = await productsCollection.findOne({ _id: ObjectId(id) });
       res.send(productDetails);
+    });
+
+    /**
+     * @method  DELETE
+     * @access  private
+     * @desc    Delete a single product
+     */
+    app.delete('/products/:id', async (req, res) => {
+      const { id } = req.params;
+      const result = await productsCollection.deleteOne({ _id: ObjectId(id) });
+
+      res.send(result);
     });
   } finally {
   }
