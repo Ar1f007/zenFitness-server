@@ -49,11 +49,12 @@ const run = async () => {
      * @desc    Add a new product
      */
     app.post('/products', async (req, res) => {
-      const { values } = req.body;
+      const { product } = req.body;
+
       const response = await productsCollection.insertOne({
-        ...values,
-        price: Number(values.price),
-        quantity: Number(values.quantity),
+        ...product,
+        price: Number(product.price),
+        quantity: Number(product.quantity),
       });
 
       res.send(response);
