@@ -61,6 +61,34 @@ const run = async () => {
     });
 
     /**
+     * @method  PUT
+     * @access  private
+     * @desc    Decrease quantity value of a single product by one
+     */
+    app.put('/products/:id/update-quantity', async (req, res) => {
+      const { id } = req.params;
+      const { quantity } = req.body;
+      const response = await productsCollection.updateOne(
+        { _id: ObjectId(id) },
+        { $set: { quantity } }
+      );
+
+      res.send(response);
+    });
+
+    app.put('/products/:id/restock', async (req, res) => {
+      const { id } = req.params;
+      const { restockAmount } = req.body;
+
+      const response = await productsCollection.updateOne(
+        { _id: ObjectId(id) },
+        { $set: { quantity: restockAmount } }
+      );
+
+      res.send(response);
+    });
+
+    /**
      * @method  DELETE
      * @access  private
      * @desc    Delete a single product
