@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
@@ -20,6 +21,14 @@ const run = async () => {
   try {
     await client.connect();
     const productsCollection = client.db('zenFitness').collection('products');
+
+    app.post('/login', async (req, res) => {
+      const user = req.body;
+
+      const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '3d' });
+
+      res.send(token);
+    });
 
     /**
      * @method  GET
