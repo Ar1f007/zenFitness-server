@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { verifyUser } = require('./middleware/verifyToken');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,11 +23,14 @@ const run = async () => {
     await client.connect();
     const productsCollection = client.db('zenFitness').collection('products');
 
-    app.post('/login', async (req, res) => {
+    /**
+     * @method  POST
+     * @access  public
+     * @desc    Creates a token on user login
+     */
+    app.post('/generate-token', async (req, res) => {
       const user = req.body;
-
       const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '3d' });
-
       res.send(token);
     });
 
@@ -69,6 +73,14 @@ const run = async () => {
       res.send(response);
     });
 
+    app.get('/my-products', verifyUser, async (req, res) => {
+      const email = req.user.email;
+
+      const cursor = productsCollection.find({ email });
+      const products = await cursor.toArray();
+
+      res.send(products);
+    });
     /**
      * @method  PUT
      * @access  private
