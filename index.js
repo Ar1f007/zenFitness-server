@@ -73,6 +73,11 @@ const run = async () => {
       res.send(response);
     });
 
+    /**
+     * @method  GET
+     * @access  private
+     * @desc    Get listing of user's own products
+     */
     app.get('/my-products', verifyUser, async (req, res) => {
       const email = req.user.email;
 
@@ -97,6 +102,11 @@ const run = async () => {
       res.send(response);
     });
 
+    /**
+     * @method  PUT
+     * @access  private
+     * @desc    Increase quantity value of a single product by the amount which is provided
+     */
     app.put('/products/:id/restock', async (req, res) => {
       const { id } = req.params;
       const { restockAmount } = req.body;
@@ -104,6 +114,28 @@ const run = async () => {
       const response = await productsCollection.updateOne(
         { _id: ObjectId(id) },
         { $set: { quantity: restockAmount } }
+      );
+
+      res.send(response);
+    });
+
+    app.put('/edit-product/:id', async (req, res) => {
+      const { id } = req.params;
+      const { product } = req.body;
+      const response = await productsCollection.updateOne(
+        { _id: ObjectId(id) },
+        {
+          $set: {
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            price: Number(product.price),
+            quantity: Number(product.quantity),
+            supplier: product.supplier,
+            email: product.email,
+          },
+        },
+        { upsert: true }
       );
 
       res.send(response);
