@@ -14,7 +14,7 @@ This is the server side of the project [zenFitness](https://zenfitness-46154.web
   - Generate JWT for logged in user
   - Verify user through JWT
 
-### Client side description about the project can be found [here](https://github.com/ProgrammingHeroWC4/warehouse-management-client-side-Ar1f007)
+### Client side description about the project can be found [here](https://github.com/ProgrammingHeroWC4/warehouse-management-client-side-Ar1f007#zen-fitness)
 
 ## See the live site [Here](https://zenfitness-46154.web.app/)
 
