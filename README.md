@@ -2,7 +2,7 @@
 
 This is the server side of the project [zenFitness](https://zenfitness-46154.web.app/)
 
-## Task description about the project can be found [here](https://github.com/ProgrammingHeroWC4/warehouse-management-client-side-Ar1f007/blob/main/task_description.md)
+## Task description about the project can be found [here](https://github.com/Ar1f007/zenFitness-client/blob/main/task_description.md)
 
 ## What's included?
 
@@ -14,7 +14,7 @@ This is the server side of the project [zenFitness](https://zenfitness-46154.web
   - Generate JWT for logged in user
   - Verify user through JWT
 
-### Client side description about the project can be found [here](https://github.com/ProgrammingHeroWC4/warehouse-management-client-side-Ar1f007#zen-fitness)
+### Client side description about the project can be found [here](https://github.com/Ar1f007/zenFitness-client#zen-fitness)
 
 ## See the live site [Here](https://zenfitness-46154.web.app/)
 
